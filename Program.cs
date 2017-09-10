@@ -1,7 +1,8 @@
 ﻿// \/\/\/\__Acrostic__/\/\/\/
 // Made by Hamza
 // Credit to https://github.com/BenVlodgi for the Console (its useful if u want a colorful console, renamed it to ExtraConsole)
-// Credit to http://developer.wordnik.com/ for the API
+// Credit to http://developer.wordnik.com/ for the API (OLD API)
+// Credit to http://poetrydb.org/ for the poetry API
 
 using System;
 using System.Net; // To get the JSON API
@@ -18,55 +19,163 @@ namespace Acrostic
     {
         static void Main(string[] args)
         {
-            ExtraConsole.WriteLine("<f=darkgreen>Welcome to my Acrostic poem generator (its not really a poem) program. #TODO make it looks more like a poem.");
+            ExtraConsole.WriteLine("<f=red>LOADING....");
+            string[] Words = GetWords("http://poetrydb.org/author/Shakespeare/lines", "");
+            Console.WriteLine();
+            ExtraConsole.WriteLine("<f=darkgreen>Welcome to my Acrostic poem generator.");
             ExtraConsole.WriteLine("<f=darkgreen>Write a word and click <f=red>ENTER<f=darkgreen> to start.");
+
             while (true)
             {
                 Console.WriteLine();
-                var Words = Console.ReadLine();
+                string Text = Console.ReadLine();
                 Console.WriteLine();
 
-                foreach (char c in Words)
+                int index = -1;
+                int changeAbleIndex = -1;
+                int tottalspacing = 0;
+
+                List<string> wordsList = new List<string>();
+                List<string> unspacedWordsList = new List<string>();
+
+                foreach (char c in Text)
                 {
-                    string word = null;
+                    G:
+                    Random r = new Random(DateTime.Now.Millisecond);
+                    string word = Words[r.Next(Words.Length)];
                     if (c == ' ') word = " ";
                     else if (c == '.') word = ".";
-
-                    if (word == null) word = GetWords("http://api.wordnik.com:80/v4/words.json/search/" + c + "?caseSensitive=true&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=4&maxLength=-1&skip=1&limit=-1&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5");
-
-                    if (word != null)
+                    else
                     {
-                        ExtraConsole.Write($"<f=red>{word.Substring(0, 1)}");
-                        ExtraConsole.WriteLine($"<f=darkgreen>{word.Substring(1, word.Length - 1)}");
-                    } else
-                    {
-                        ExtraConsole.WriteLine($"<f=red>an ERROR has occure, please make sure you are using ENGLISH.");
-                        break;
+
+                        if (word != null)
+                        {
+                            word = word.Replace("[", "");
+                            word = word.Replace("]", "");
+                            word = word.Replace("\"", "");
+                            word = word.Replace(",", "");
+
+
+                            string[] poetry = word.Split(new string[] { "\r\n", "\n", Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+
+                            foreach (string s in poetry)
+                            {
+                                if (s.Length < 40 && !Contains(unspacedWordsList, s))
+                                {
+
+                                    bool isDone = false;
+                                    for (int i = 0; i < s.Length; i++)
+                                    {
+                                        if (s[i] == c)
+                                        {
+                                            changeAbleIndex = i;
+                                            unspacedWordsList.Add(s);
+                                            word = s;
+                                            if (index == -1)
+                                            {
+                                                index = i + "                                ".Length;
+                                                word = word + "                                ";
+                                            }
+                                            isDone = true;
+                                            break;
+                                        }
+                                    }
+                                    if (isDone)
+                                    {
+                                        break;
+                                    }
+                                }else
+                                {
+                                    goto G;
+                                }
+                            }
+
+                            if (index == -1 || changeAbleIndex == -1)
+                            {
+                                goto G;
+                            }
+
+                            if (changeAbleIndex < index)
+                            {
+                                word = Spacing(index - changeAbleIndex) + word;
+                            }
+                            else if (changeAbleIndex > index)
+                            {
+                                for (int i = 0; i < wordsList.Count; i++)
+                                {
+                                    var spacing = Spacing(changeAbleIndex - index);
+                                    wordsList[i] = spacing + wordsList[i];
+                                    tottalspacing += changeAbleIndex - index;
+                                }
+                            }
+                            
+                            wordsList.Add(word);
+                        }
+                        else
+                        {
+                            ExtraConsole.WriteLine($"<f=red>an ERROR has occure, please make sure you are using ENGLISH.");
+                            break;
+                        }
                     }
                 }
-                
+                index += tottalspacing;
+                foreach (string word in wordsList) {
+                    if (word != " " || word != ".")
+                    {
+                        try
+                        {
+                            ExtraConsole.Write($"<f=darkgreen>{word.Substring(0, index)}");
+                            ExtraConsole.Write($"<f=red>{word.Substring(index, 1)}");
+                            ExtraConsole.WriteLine($"<f=darkgreen>{word.Substring(index + 1, word.Length - (index + 1))}");
+                        } catch (Exception)
+                        {
+                            Console.WriteLine("");
+                        }
+                    } else if(word == ".")
+                    {
+                        ExtraConsole.WriteLine("<f=darkgreen>.");
+                    } else
+                    {
+                        ExtraConsole.WriteLine("");
+                    }
+                }
+
                 Console.WriteLine();
                 ExtraConsole.WriteLine("<f=darkgreen>If u want to try again, write the word and click <f=red>ENTER<f=darkgreen> to start.");
             }
         }
 
-        public static string GetWords(string url)
+        public static bool Contains(List<string> list, string word)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i] == word) return true;
+            }
+            return false;
+        }
+
+        public static string[] GetWords(string url, string url2)
         {
             string JSON = null;
-            List<string> words = new List<string>();
+            List<string> lines = new List<string>();
 
             try
             {
                 while (JSON == null) JSON = GET(url);
+                JSON = "{\"searchResults\":" + JSON + "}";
                 dynamic data = JObject.Parse(JSON);
                 JArray array = new JArray(data.searchResults);
+
                 foreach (JObject o in array.Children<JObject>())
                 {
-                    foreach (JProperty p in o.Properties())
+                    dynamic data1 = o;
+                    JArray array1 = new JArray(data1.lines);
+                    foreach (JObject o1 in array.Children<JObject>())
                     {
-                        if (p.Name == "word")
+                        foreach (JProperty p in o1.Properties())
                         {
-                            words.Add(p.Value.ToString());
+                            lines.Add(p.Value.ToString());
                         }
                     }
                 }
@@ -78,7 +187,7 @@ namespace Acrostic
 
             try
             {
-                return words[new Random().Next(words.Count)];
+                return lines.ToArray();
             }
             catch (Exception)
             {
@@ -86,6 +195,18 @@ namespace Acrostic
             }
         }
 
+
+        static string Spacing(int amount)
+        {
+            string spaces = "";
+
+            for(int i = 0; i < amount; i++)
+            {
+                spaces += " ";
+            }
+
+            return spaces;
+        }
 
         static string GET(string url)
         {
