@@ -32,7 +32,6 @@ namespace Acrostic
                 Console.WriteLine();
 
                 int index = -1;
-                int changeAbleIndex = -1;
                 int tottalspacing = 0;
 
                 List<string> wordsList = new List<string>();
@@ -58,9 +57,11 @@ namespace Acrostic
 
                             string[] poetry = word.Split(new string[] { "\r\n", "\n", Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 
+                            int changeAbleIndex = -1;
 
                             foreach (string s in poetry)
                             {
+
                                 if (s.Length < 40 && !Contains(unspacedWordsList, s))
                                 {
 
@@ -85,9 +86,10 @@ namespace Acrostic
                                     {
                                         break;
                                     }
-                                }else
+                                }
+                                else
                                 {
-                                    goto G;
+                                    break;
                                 }
                             }
 
@@ -109,7 +111,7 @@ namespace Acrostic
                                     tottalspacing += changeAbleIndex - index;
                                 }
                             }
-                            
+
                             wordsList.Add(word);
                         }
                         else
@@ -120,7 +122,8 @@ namespace Acrostic
                     }
                 }
                 index += tottalspacing;
-                foreach (string word in wordsList) {
+                foreach (string word in wordsList)
+                {
                     if (word != " " || word != ".")
                     {
                         try
@@ -128,14 +131,17 @@ namespace Acrostic
                             ExtraConsole.Write($"<f=darkgreen>{word.Substring(0, index)}");
                             ExtraConsole.Write($"<f=red>{word.Substring(index, 1)}");
                             ExtraConsole.WriteLine($"<f=darkgreen>{word.Substring(index + 1, word.Length - (index + 1))}");
-                        } catch (Exception)
+                        }
+                        catch (Exception)
                         {
                             Console.WriteLine("");
                         }
-                    } else if(word == ".")
+                    }
+                    else if (word == ".")
                     {
                         ExtraConsole.WriteLine("<f=darkgreen>.");
-                    } else
+                    }
+                    else
                     {
                         ExtraConsole.WriteLine("");
                     }
@@ -200,7 +206,7 @@ namespace Acrostic
         {
             string spaces = "";
 
-            for(int i = 0; i < amount; i++)
+            for (int i = 0; i < amount; i++)
             {
                 spaces += " ";
             }
