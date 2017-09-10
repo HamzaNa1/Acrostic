@@ -55,29 +55,28 @@ namespace Acrostic
         {
             string JSON = null;
             List<string> words = new List<string>();
-            using (WebClient wc = new WebClient())
+
+            try
             {
-                try
+                while (JSON == null) JSON = GET(url);
+                dynamic data = JObject.Parse(JSON);
+                JArray array = new JArray(data.searchResults);
+                foreach (JObject o in array.Children<JObject>())
                 {
-                    while (JSON == null) JSON = GET(url);
-                    dynamic data = JObject.Parse(JSON);
-                    JArray array = new JArray(data.searchResults);
-                    foreach (JObject o in array.Children<JObject>())
+                    foreach (JProperty p in o.Properties())
                     {
-                        foreach (JProperty p in o.Properties())
+                        if (p.Name == "word")
                         {
-                            if (p.Name == "word")
-                            {
-                                words.Add(p.Value.ToString());
-                            }
+                            words.Add(p.Value.ToString());
                         }
                     }
                 }
-                catch (Exception e)
-                {
-                    ExtraConsole.WriteLine($"<f=red>{e}");
-                }
             }
+            catch (Exception e)
+            {
+                ExtraConsole.WriteLine($"<f=red>{e}");
+            }
+
             try
             {
                 return words[new Random().Next(words.Count)];
@@ -87,6 +86,7 @@ namespace Acrostic
                 return null;
             }
         }
+
 
         static string GET(string url)
         {
