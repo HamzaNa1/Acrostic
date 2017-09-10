@@ -20,7 +20,8 @@ namespace Acrostic
         static void Main(string[] args)
         {
             ExtraConsole.WriteLine("<f=red>LOADING....");
-            string[] Words = GetWords("http://poetrydb.org/author/Shakespeare/lines", "");
+            string[] Shakespeare = GetWords("http://poetrydb.org/author/Shakespeare/lines", "");
+            string[] Emily = GetWords("http://poetrydb.org/author/Emily%20Dickinson/lines", "");
             Console.WriteLine();
             ExtraConsole.WriteLine("<f=darkgreen>Welcome to my Acrostic poem generator.");
             ExtraConsole.WriteLine("<f=darkgreen>Write a word and click <f=red>ENTER<f=darkgreen> to start.");
@@ -39,6 +40,7 @@ namespace Acrostic
 
                 foreach (char c in Text)
                 {
+                    string[] Words = new Random().Next(0, 2) == 0 ? Shakespeare : Emily;
                     G:
                     Random r = new Random(DateTime.Now.Millisecond);
                     string word = Words[r.Next(Words.Length)];
