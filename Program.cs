@@ -19,9 +19,18 @@ namespace Acrostic
     {
         static void Main(string[] args)
         {
+            List<string[]> Authors = new List<string[]>();
             ExtraConsole.WriteLine("<f=red>LOADING....");
-            string[] Shakespeare = GetWords("http://poetrydb.org/author/Shakespeare/lines", "");
-            string[] Emily = GetWords("http://poetrydb.org/author/Emily%20Dickinson/lines", "");
+            Authors.Add(GetWords("http://poetrydb.org/author/Shakespeare/lines"));
+            Authors.Add(GetWords("http://poetrydb.org/author/Emily%20Dickinson/lines"));
+            Authors.Add(GetWords("http://poetrydb.org/author/Alan%20Seeger/lines"));
+            Authors.Add(GetWords("http://poetrydb.org/author/Adam%20Lindsay%20Gordon/lines"));
+            Authors.Add(GetWords("http://poetrydb.org/author/Alexander%20Pope/lines"));
+            Authors.Add(GetWords("http://poetrydb.org/author/William%20Vaughn%20Moody/lines"));
+            Authors.Add(GetWords("http://poetrydb.org/author/McGonagall/lines"));
+            Authors.Add(GetWords("http://poetrydb.org/author/William%20Wordsworth/lines"));
+
+
             Console.WriteLine();
             ExtraConsole.WriteLine("<f=darkgreen>Welcome to my Acrostic poem generator.");
             ExtraConsole.WriteLine("<f=darkgreen>Write a word and click <f=red>ENTER<f=darkgreen> to start.");
@@ -40,8 +49,10 @@ namespace Acrostic
 
                 foreach (char c in Text)
                 {
-                    string[] Words = new Random().Next(0, 2) == 0 ? Shakespeare : Emily;
                     G:
+                    string[] Words;
+                    PickRandomAuthor(out Words, Authors);
+
                     Random r = new Random(DateTime.Now.Millisecond);
                     string word = Words[r.Next(Words.Length)];
                     if (c == ' ') word = " ";
@@ -91,7 +102,7 @@ namespace Acrostic
                                 }
                                 else
                                 {
-                                    break;
+                                    goto G;
                                 }
                             }
 
@@ -163,7 +174,7 @@ namespace Acrostic
             return false;
         }
 
-        public static string[] GetWords(string url, string url2)
+        public static string[] GetWords(string url)
         {
             retry:
             string JSON = null;
@@ -243,6 +254,11 @@ namespace Acrostic
                 }
                 throw;
             }
+        }
+
+        public static void PickRandomAuthor(out string[] author, List<string[]> Authors)
+        {
+            author = Authors[new Random().Next(0, Authors.Count)];
         }
     }
 }
