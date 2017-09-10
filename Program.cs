@@ -163,6 +163,7 @@ namespace Acrostic
 
         public static string[] GetWords(string url, string url2)
         {
+            retry:
             string JSON = null;
             List<string> lines = new List<string>();
 
@@ -186,9 +187,12 @@ namespace Acrostic
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                ExtraConsole.WriteLine($"<f=red>{e}");
+                ExtraConsole.WriteLine($"<f=red>LOADING FAILED PLEASE MAKE SURE YOUR INTERNET CONNECTION IS OK");
+                ExtraConsole.WriteLine($"<f=red>Retrying...");
+                Console.WriteLine();
+                goto retry;
             }
 
             try
