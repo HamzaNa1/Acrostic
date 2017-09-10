@@ -41,11 +41,10 @@ namespace Acrostic
                     } else
                     {
                         ExtraConsole.WriteLine($"<f=red>an ERROR has occure, please make sure you are using ENGLISH.");
-                        goto G;
+                        break;
                     }
                 }
                 
-                G:
                 Console.WriteLine();
                 ExtraConsole.WriteLine("<f=darkgreen>If u want to try again, write the word and click <f=red>ENTER<f=darkgreen> to start.");
             }
