@@ -20,16 +20,44 @@ namespace Acrostic
         static void Main(string[] args)
         {
             List<string[]> Authors = new List<string[]>();
+            Console.Clear();
             ExtraConsole.WriteLine("<f=red>LOADING....");
+            ExtraConsole.WriteLine("<f=red>0/8");
             Authors.Add(GetWords("http://poetrydb.org/author/Shakespeare/lines"));
+            Console.Clear();
+            ExtraConsole.WriteLine("<f=red>LOADING....");
+            ExtraConsole.WriteLine("<f=red>1/8");
             Authors.Add(GetWords("http://poetrydb.org/author/Emily%20Dickinson/lines"));
+            Console.Clear();
+            ExtraConsole.WriteLine("<f=red>LOADING....");
+            ExtraConsole.WriteLine("<f=red>2/8");
             Authors.Add(GetWords("http://poetrydb.org/author/Alan%20Seeger/lines"));
+            Console.Clear();
+            ExtraConsole.WriteLine("<f=red>LOADING....");
+            ExtraConsole.WriteLine("<f=red>3/8");
             Authors.Add(GetWords("http://poetrydb.org/author/Adam%20Lindsay%20Gordon/lines"));
+            Console.Clear();
+            ExtraConsole.WriteLine("<f=red>LOADING....");
+            ExtraConsole.WriteLine("<f=red>4/8");
             Authors.Add(GetWords("http://poetrydb.org/author/Alexander%20Pope/lines"));
+            Console.Clear();
+            ExtraConsole.WriteLine("<f=red>LOADING....");
+            ExtraConsole.WriteLine("<f=red>5/8");
             Authors.Add(GetWords("http://poetrydb.org/author/William%20Vaughn%20Moody/lines"));
+            Console.Clear();
+            ExtraConsole.WriteLine("<f=red>LOADING....");
+            ExtraConsole.WriteLine("<f=red>6/8");
             Authors.Add(GetWords("http://poetrydb.org/author/McGonagall/lines"));
+            Console.Clear();
+            ExtraConsole.WriteLine("<f=red>LOADING....");
+            ExtraConsole.WriteLine("<f=red>7/8");
             Authors.Add(GetWords("http://poetrydb.org/author/William%20Wordsworth/lines"));
+            Console.Clear();
+            ExtraConsole.WriteLine("<f=red>LOADING....");
+            ExtraConsole.WriteLine("<f=red>8/8");
 
+            Console.Clear();
+            ExtraConsole.WriteLine("<f=darkgreen>DONE!");
 
             Console.WriteLine();
             ExtraConsole.WriteLine("<f=darkgreen>Welcome to my Acrostic poem generator.");
@@ -74,10 +102,8 @@ namespace Acrostic
 
                             foreach (string s in poetry)
                             {
-
                                 if (s.Length < 40 && !Contains(unspacedWordsList, s))
                                 {
-
                                     bool isDone = false;
                                     for (int i = 0; i < s.Length; i++)
                                     {
