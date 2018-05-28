@@ -63,12 +63,15 @@ namespace Acrostic
             ExtraConsole.WriteLine("<f=darkgreen>Welcome to my Acrostic poem generator.");
             ExtraConsole.WriteLine("<f=darkgreen>Write a word and click <f=red>ENTER<f=darkgreen> to start.");
 
+
             while (true)
             {
+                B:
                 Console.WriteLine();
                 string Text = Console.ReadLine();
                 Console.WriteLine();
 
+                int Trys = 0;
                 int index = -1;
                 int tottalspacing = 0;
 
@@ -78,6 +81,12 @@ namespace Acrostic
                 foreach (char c in Text)
                 {
                     G:
+                    if (Trys == 100000)
+                    {
+                        ExtraConsole.WriteLine("<f=red> a letter is not found.");
+                        goto B;
+                    }
+                    Trys++;
                     string[] Words;
                     PickRandomAuthor(out Words, Authors);
 
@@ -96,28 +105,29 @@ namespace Acrostic
                             word = word.Replace(",", "");
 
 
-                            string[] poetry = word.Split(new string[] { "\r\n", "\n", Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                            List<string> poetry = word.Split(new string[] { "\r\n", "\n", Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
                             int changeAbleIndex = -1;
 
-                            foreach (string s in poetry)
+                            for(int trys = 0; trys < poetry.Count; trys++)
                             {
-                                if (s.Length < 40 && !Contains(unspacedWordsList, s))
+                                if (poetry[trys].Length < 40 && !Contains(unspacedWordsList, poetry[trys]))
                                 {
                                     bool isDone = false;
-                                    for (int i = 0; i < s.Length; i++)
+                                    for (int i = 0; i < poetry[trys].Length; i++)
                                     {
-                                        if (s[i] == c)
+                                        if (poetry[trys][i] == c)
                                         {
                                             changeAbleIndex = i;
-                                            unspacedWordsList.Add(s);
-                                            word = s;
+                                            unspacedWordsList.Add(poetry[trys]);
+                                            word = poetry[trys];
                                             if (index == -1)
                                             {
                                                 index = i + "                                ".Length;
                                                 word = word + "                                ";
                                             }
                                             isDone = true;
+                                            Trys = 0;
                                             break;
                                         }
                                     }
@@ -130,6 +140,7 @@ namespace Acrostic
                                 {
                                     goto G;
                                 }
+                                poetry.Remove(poetry[trys]);
                             }
 
                             if (index == -1 || changeAbleIndex == -1)
@@ -222,6 +233,10 @@ namespace Acrostic
                         foreach (JProperty p in o1.Properties())
                         {
                             lines.Add(p.Value.ToString());
+                            p.Value = p.Value.ToString().Replace("[", "");
+                            p.Value = p.Value.ToString().Replace("]", "");
+                            p.Value = p.Value.ToString().Replace("\"", "");
+                            p.Value = p.Value.ToString().Replace(",", "");
                         }
                     }
                 }

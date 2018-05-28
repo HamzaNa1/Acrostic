@@ -1,0 +1,8 @@
+C:\Users\Hamza\Documents\Visual Studio 2017\Projects\Acrostic\Acrostic\bin\Debug\Acrostic.exe.config
+C:\Users\Hamza\Documents\Visual Studio 2017\Projects\Acrostic\Acrostic\bin\Debug\Acrostic.exe
+C:\Users\Hamza\Documents\Visual Studio 2017\Projects\Acrostic\Acrostic\bin\Debug\Acrostic.pdb
+C:\Users\Hamza\Documents\Visual Studio 2017\Projects\Acrostic\Acrostic\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Hamza\Documents\Visual Studio 2017\Projects\Acrostic\Acrostic\obj\Debug\Acrostic.csprojResolveAssemblyReference.cache
+C:\Users\Hamza\Documents\Visual Studio 2017\Projects\Acrostic\Acrostic\obj\Debug\Acrostic.exe
+C:\Users\Hamza\Documents\Visual Studio 2017\Projects\Acrostic\Acrostic\obj\Debug\Acrostic.pdb
+C:\Users\Hamza\Documents\Visual Studio 2017\Projects\Acrostic\Acrostic\obj\Debug\Acrostic.csproj.CoreCompileInputs.cache
