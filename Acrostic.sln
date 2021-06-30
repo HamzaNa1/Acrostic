@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31410.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acrostic", "Acrostic.csproj", "{5EAD976F-3689-402E-8E1C-F13B47303FBB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5EAD976F-3689-402E-8E1C-F13B47303FBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EAD976F-3689-402E-8E1C-F13B47303FBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EAD976F-3689-402E-8E1C-F13B47303FBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EAD976F-3689-402E-8E1C-F13B47303FBB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9874D23B-D9D0-4940-8228-403DA9279438}
+	EndGlobalSection
+EndGlobal

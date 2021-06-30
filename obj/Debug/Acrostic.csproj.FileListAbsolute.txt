@@ -6,3 +6,13 @@ C:\Users\Hamza\Documents\Visual Studio 2017\Projects\Acrostic\Acrostic\obj\Debug
 C:\Users\Hamza\Documents\Visual Studio 2017\Projects\Acrostic\Acrostic\obj\Debug\Acrostic.exe
 C:\Users\Hamza\Documents\Visual Studio 2017\Projects\Acrostic\Acrostic\obj\Debug\Acrostic.pdb
 C:\Users\Hamza\Documents\Visual Studio 2017\Projects\Acrostic\Acrostic\obj\Debug\Acrostic.csproj.CoreCompileInputs.cache
+C:\Users\hamza\Documents\GitHub\Acrostic\bin\Debug\Acrostic.exe.config
+C:\Users\hamza\Documents\GitHub\Acrostic\bin\Debug\Acrostic.exe
+C:\Users\hamza\Documents\GitHub\Acrostic\bin\Debug\Acrostic.pdb
+C:\Users\hamza\Documents\GitHub\Acrostic\bin\Debug\Newtonsoft.Json.dll
+C:\Users\hamza\Documents\GitHub\Acrostic\bin\Debug\Newtonsoft.Json.xml
+C:\Users\hamza\Documents\GitHub\Acrostic\obj\Debug\Acrostic.csproj.AssemblyReference.cache
+C:\Users\hamza\Documents\GitHub\Acrostic\obj\Debug\Acrostic.csproj.CoreCompileInputs.cache
+C:\Users\hamza\Documents\GitHub\Acrostic\obj\Debug\Acrostic.csproj.CopyComplete
+C:\Users\hamza\Documents\GitHub\Acrostic\obj\Debug\Acrostic.exe
+C:\Users\hamza\Documents\GitHub\Acrostic\obj\Debug\Acrostic.pdb

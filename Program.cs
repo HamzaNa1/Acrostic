@@ -1,6 +1,6 @@
 ﻿// \/\/\/\__Acrostic__/\/\/\/
 // Made by Hamza
-// Credit to https://github.com/BenVlodgi for the Console (its useful if u want a colorful console, renamed it to ExtraConsole)
+// Credit to https://github.com/BenVlodgi for the Console (its useful if you want a colorful console, renamed it to ExtraConsole)
 // Credit to http://developer.wordnik.com/ for the API (OLD API)
 // Credit to http://poetrydb.org/ for the poetry API
 
@@ -10,7 +10,6 @@ using System.IO; // To get the JSON API
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json.Linq; // To pick the words out of the JSON API
 
 namespace Acrostic
@@ -83,7 +82,7 @@ namespace Acrostic
                     G:
                     if (Trys == 100000)
                     {
-                        ExtraConsole.WriteLine("<f=red> a letter is not found.");
+                        ExtraConsole.WriteLine($"<f=red> the letter {c} couldn't be found.");
                         goto B;
                     }
                     Trys++;
@@ -213,7 +212,6 @@ namespace Acrostic
 
         public static string[] GetWords(string url)
         {
-            retry:
             string JSON = null;
             List<string> lines = new List<string>();
 
@@ -246,7 +244,7 @@ namespace Acrostic
                 ExtraConsole.WriteLine($"<f=red>LOADING FAILED PLEASE MAKE SURE YOUR INTERNET CONNECTION IS OK");
                 ExtraConsole.WriteLine($"<f=red>Retrying...");
                 Console.WriteLine();
-                goto retry;
+                return GetWords(url);
             }
 
             try
@@ -259,17 +257,9 @@ namespace Acrostic
             }
         }
 
-
         static string Spacing(int amount)
         {
-            string spaces = "";
-
-            for (int i = 0; i < amount; i++)
-            {
-                spaces += " ";
-            }
-
-            return spaces;
+            return new string(' ', amount);
         }
 
         static string GET(string url)
